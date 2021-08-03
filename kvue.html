@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 插值 -->
+        <p>{{count}}</p>
+        <!-- 指令 -->
+        <p k-text="count"></p>
+        <p k-html="desc"></p>
+    </div>
+    <script src="compfile.js"></script>
+    <script src="kvue.js"></script>
+    <script>
+        const app = new KVue({
+            el: "#app",
+            data: {
+                count: 2,
+                desc: "<span style='color:red;'>hello word</span>"
+            }
+        })
+        setInterval(() => {
+            app.count++;
+        },1000)
+    </script>
+</body>
+
+</html>
