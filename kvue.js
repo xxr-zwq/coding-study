@@ -35,20 +35,6 @@ function observe(obj) {
 
 }
 
-class KVue {
-    constructor(options) {
-        // 保存选项
-        this.$options = options;
-        this.$data = options.data;
-        // 响应化处理
-        observe(options.data);
-        // 代理数据，方便用户直接访问$data里面的值
-        Proxy(this, "$data");
-        // 创建编译器
-        new Compiler(options.el,this)
-    }
-}
-
 function Proxy(vm, soureKey) {
     // vm[soureKey]实质就是vm[$data]
     Object.keys(vm[soureKey]).forEach(key => {
@@ -64,13 +50,29 @@ function Proxy(vm, soureKey) {
     })
 }
 
+class KVue {
+    constructor(options) {
+        // 保存选项
+        this.$options = options;
+        this.$data = options.data;
+        // 响应化处理
+        observe(options.data);
+        // 代理数据，方便用户直接访问$data里面的值
+        Proxy(this, "$data");
+        // 创建编译器
+        new Compiler(options.el,this)
+    }
+}
+
 
 // 根据对象类型如何做响应化
 class Observer {
     constructor(value) {
         // 临时保存value 便于使用
         this.value == value;
-        this.walk(value);
+        if(typeof value === "object") {
+            this.walk(value);
+        }
     }
 
     // 对象数据响应化
@@ -108,6 +110,6 @@ class Dep {
         this.deps.push(dep);
     }
     notify() {
-        this.deps.forEach(dep => dep.update);
+        this.deps.forEach(dep => dep.update());
     }
 }
