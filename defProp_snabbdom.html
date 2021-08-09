@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snabbdom</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javescript" src="node_modules/snabbdom/build/index.js"></script>
+    <!-- 引入使用有问题 -->
+    <script>
+        const obj = {};
+        // const {init,h} = snabbdom;
+        // 1.获取patch函数
+        const patch = init([]);
+        let vnode; // 保存之前旧的虚拟dom
+
+        function defineReactive(obj, key, val) {
+            Object.defineProperty(obj, key, {
+                get() {
+                    return val;
+                },
+                set(newVal) {
+                    if (newVal !== val) {
+                        val = newVal;
+                        update();
+                    }
+                }
+            })
+        }
+
+        // 使用虚拟dom做更新
+        function update() {
+            vnode = patch(vnode, h("div#app", obj.foo));
+        }
+        defineReactive(obj, "foo", new Date().toLocaleTimeString());
+        // 执行初始化
+        vnode = patch(app, h("div#app", obj.foo));
+        console.log(vnode);
+        setInterval(() => {
+            obj.foo = new Date().toLocaleTimeString();
+        }, 1000)
+    </script>
+</body>
+
+</html>

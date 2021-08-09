@@ -1,0 +1,24 @@
+{
+  "name": "hand_roll_vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compfile.js",
+  "dependencies": {
+    "snabbdom": "^3.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxr-zwq/coding-study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xxr-zwq/coding-study/issues"
+  },
+  "homepage": "https://github.com/xxr-zwq/coding-study#readme"
+}
